@@ -1,8 +1,8 @@
 const express = require("express");
 const app = express();
 
-app.get("/", (req, res) => res.send("Express on Vercel"));
+app.get("/", (req, res) => res.send("Eee caraio"));
 
-app.listen(3000, () => console.log("Server ready on port 3000."));
-
+// Exporte o app diretamente, sem `app.listen`
+// Vercel irá usar esse export como a função de entrada
 module.exports = app;
