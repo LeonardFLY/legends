@@ -1,49 +1,64 @@
+// script.js
 document.addEventListener('DOMContentLoaded', () => {
     const cardContainer = document.getElementById('card-blue');
+    let loadedImages = 0;
+    let totalImages = 0;
     const imagePaths = [];
 
-    // Função para criar e adicionar cards
-    const addCards = (folder, totalCards) => {
-        for (let i = 1; i <= totalCards; i++) {
-            const cardPath = `Cartas Tabletopia/${folder}/Carta (${i}).png`;
-            const card = document.createElement('div');
-            card.className = 'card';
-
-            const img = document.createElement('img');
-            img.src = cardPath;
-            img.alt = `Carta ${i}`;
-            img.loading = 'lazy'; // Aplicar lazy loading
-            img.style.opacity = 0; // Ocultar até que a imagem esteja carregada
-
-            card.appendChild(img);
-            cardContainer.appendChild(card);
-
-            // Armazena os caminhos das imagens para controle
-            imagePaths.push(cardPath);
-
-            img.onload = () => {
-                img.style.opacity = 1; // Mostrar a imagem quando carregada
-            };
-
-            img.onerror = () => {
-                console.error(`Erro ao carregar imagem: ${cardPath}`);
-            };
-        }
-    };
-
-    // Função para carregar o arquivo JSON com a contagem de arquivos
-    fetch('/fileCounts')
-        .then(response => response.json())
+    // Função para carregar o arquivo JSON
+    fetch('fileCounts.json')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok ' + response.statusText);
+            }
+            return response.json();
+        })
         .then(fileCounts => {
             Object.keys(fileCounts).forEach(folder => {
-                addCards(folder, fileCounts[folder]);
+                const totalCards = fileCounts[folder];
+                for (let i = 1; i <= totalCards; i++) {
+                    const cardPath = `./Cartas Tabletopia/${folder}/Carta (${i}).png`;
+                    const card = document.createElement('div');
+                    card.className = 'card';
+                    const img = document.createElement('img');
+                    img.src = cardPath;
+                    img.alt = `Carta ${i}`;
+                    img.loading = 'lazy'; // Aplicar lazy loading
+                    img.style.display = 'none';
+                    card.appendChild(img);
+                    cardContainer.appendChild(card);
+
+                    // Armazena os caminhos das imagens para controle
+                    imagePaths.push(cardPath);
+                    totalImages++;
+
+                    img.onload = () => {
+                        loadedImages++;
+                        if (loadedImages === totalImages) {
+                            document.querySelectorAll('.card').forEach(card => {
+                                card.style.background = 'none';
+                                card.querySelector('img').style.display = 'block';
+                            });
+                        }
+                    };
+
+                    img.onerror = () => {
+                        console.error(`Erro ao carregar imagem: ${cardPath}`);
+                        loadedImages++;
+                        if (loadedImages === totalImages) {
+                            document.querySelectorAll('.card').forEach(card => {
+                                card.style.background = 'none';
+                                card.querySelector('img').style.display = 'block';
+                            });
+                        }
+                    };
+                }
             });
         })
         .catch(error => {
             console.error('Erro ao carregar o arquivo JSON:', error);
         });
 
-    // Código para o modal
     const modal = document.getElementById('myModal');
     const modalImg = document.getElementById('img01');
     const closeModal = document.querySelector('.close');
@@ -82,14 +97,14 @@ document.addEventListener('DOMContentLoaded', () => {
     prevButton.addEventListener('click', () => {
         currentImageIndex--;
         if (currentImageIndex < 0) {
-            currentImageIndex = imagePaths.length - 1;
+            currentImageIndex = totalImages - 1;
         }
         modalImg.src = imagePaths[currentImageIndex];
     });
 
     nextButton.addEventListener('click', () => {
         currentImageIndex++;
-        if (currentImageIndex >= imagePaths.length) {
+        if (currentImageIndex >= totalImages) {
             currentImageIndex = 0;
         }
         modalImg.src = imagePaths[currentImageIndex];
