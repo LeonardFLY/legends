@@ -3,12 +3,12 @@ const path = require('path');
 
 const basePath = path.join(__dirname, '../Cartas Tabletopia');
 const folders = [
-    'Verde/Campeões', 'Verde/Criatura', 'Verde/Feitiço', 'Verde/Feitiço acelerado', 'Verde/Encanto', 'Verde/Artefato', 'Verde/Terreno Cruel',
-    'Roxo/Campeões', 'Roxo/Criatura', 'Roxo/Feitiço', 'Roxo/Feitiço acelerado', 'Roxo/Encanto', 'Roxo/Artefato', 'Roxo/Terreno Cruel',
-    'Azul/Campeões', 'Azul/Criatura', 'Azul/Feitiço', 'Azul/Feitiço acelerado', 'Azul/Encanto', 'Azul/Artefato', 'Azul/Terreno Cruel',
-    'Vermelho/Campeões', 'Vermelho/Criatura', 'Vermelho/Feitiço', 'Vermelho/Feitiço acelerado', 'Vermelho/Encanto', 'Vermelho/Artefato', 'Vermelho/Terreno Cruel',
-    'Neutro/Campeões', 'Neutro/Criatura', 'Neutro/Feitiço', 'Neutro/Feitiço acelerado', 'Neutro/Encanto', 'Neutro/Artefato', 'Neutro/Terreno Cruel',
-    'Multi/Campeões', 'Multi/Criatura', 'Multi/Feitiço', 'Multi/Feitiço acelerado', 'Multi/Encanto', 'Multi/Artefato', 'Multi/Terreno Cruel'
+    'Verde/Campeões', 'Verde/Criatura', 'Verde/Feitiço', 'Verde/Feitiço Acelerado', 'Verde/Encanto', 'Verde/Artefato', 'Verde/Terreno Cruel',
+    'Roxo/Campeões', 'Roxo/Criatura', 'Roxo/Feitiço', 'Roxo/Feitiço Acelerado', 'Roxo/Encanto', 'Roxo/Artefato', 'Roxo/Terreno Cruel',
+    'Azul/Campeões', 'Azul/Criatura', 'Azul/Feitiço', 'Azul/Feitiço Acelerado', 'Azul/Encanto', 'Azul/Artefato', 'Azul/Terreno Cruel',
+    'Vermelho/Campeões', 'Vermelho/Criatura', 'Vermelho/Feitiço', 'Vermelho/Feitiço Acelerado', 'Vermelho/Encanto', 'Vermelho/Artefato', 'Vermelho/Terreno Cruel',
+    'Neutro/Campeões', 'Neutro/Criatura', 'Neutro/Feitiço', 'Neutro/Feitiço Acelerado', 'Neutro/Encanto', 'Neutro/Artefato', 'Neutro/Terreno Cruel',
+    'Multi/Campeões', 'Multi/Criatura', 'Multi/Feitiço', 'Multi/Feitiço Acelerado', 'Multi/Encanto', 'Multi/Artefato', 'Multi/Terreno Cruel'
 ];
 
 const fileCounts = {};
