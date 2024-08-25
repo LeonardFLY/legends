@@ -1,4 +1,3 @@
-// script.js
 document.addEventListener('DOMContentLoaded', () => {
     const cardContainer = document.getElementById('card-blue');
     let loadedImages = 0;
@@ -6,7 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const imagePaths = [];
 
     // Função para carregar o arquivo JSON
-    fetch('fileCounts.json')
+    fetch('/api/fileCounts.json')
         .then(response => {
             if (!response.ok) {
                 throw new Error('Network response was not ok ' + response.statusText);
@@ -17,7 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
             Object.keys(fileCounts).forEach(folder => {
                 const totalCards = fileCounts[folder];
                 for (let i = 1; i <= totalCards; i++) {
-                    const cardPath = `./Cartas Tabletopia/${folder}/Carta (${i}).png`;
+                    const cardPath = `Cartas Tabletopia/${folder}/Carta (${i}).png`;
                     const card = document.createElement('div');
                     card.className = 'card';
                     const img = document.createElement('img');
@@ -35,10 +34,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     img.onload = () => {
                         loadedImages++;
                         if (loadedImages === totalImages) {
-                            document.querySelectorAll('.card').forEach(card => {
-                                card.style.background = 'none';
-                                card.querySelector('img').style.display = 'block';
-                            });
+                            // Atualiza a página quando todas as imagens forem carregadas
+                            window.location.reload();
                         }
                     };
 
@@ -46,10 +43,8 @@ document.addEventListener('DOMContentLoaded', () => {
                         console.error(`Erro ao carregar imagem: ${cardPath}`);
                         loadedImages++;
                         if (loadedImages === totalImages) {
-                            document.querySelectorAll('.card').forEach(card => {
-                                card.style.background = 'none';
-                                card.querySelector('img').style.display = 'block';
-                            });
+                            // Atualiza a página mesmo se houver erro em algumas imagens
+                            window.location.reload();
                         }
                     };
                 }
